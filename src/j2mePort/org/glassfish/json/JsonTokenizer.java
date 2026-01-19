@@ -71,22 +71,10 @@ final class JsonTokenizer implements Closeable {
 
     private boolean minus;
     private boolean fracOrExp;
-    private BigDecimal bd;
+//    private BigDecimal bd;
 
-    enum JsonToken {
-        CURLYOPEN(Event.START_OBJECT, false),
-                SQUAREOPEN(Event.START_ARRAY, false),
-                COLON(null, false),
-                COMMA(null, false),
-                STRING(Event.VALUE_STRING, true),
-                NUMBER(Event.VALUE_NUMBER, true),
-                TRUE(Event.VALUE_TRUE, true),
-                FALSE(Event.VALUE_FALSE, true),
-                NULL(Event.VALUE_NULL, true),
-                CURLYCLOSE(Event.END_OBJECT, false),
-                SQUARECLOSE(Event.END_ARRAY, false),
-                EOF(null, false);
-
+//    enum JsonToken {
+    public static class JsonToken {
         private final JsonParser.Event event;
         private final boolean value;
 
@@ -102,6 +90,31 @@ final class JsonTokenizer implements Closeable {
         boolean isValue() {
             return value;
         }
+
+        public static final JsonToken CURLYOPEN = new JsonToken(Event.START_OBJECT, false);
+        public static final JsonToken SQUAREOPEN = new JsonToken(Event.START_ARRAY, false);
+        public static final JsonToken COLON = new JsonToken(null, false);
+        public static final JsonToken COMMA = new JsonToken(null, false);
+        public static final JsonToken STRING = new JsonToken(Event.VALUE_STRING, true);
+        public static final JsonToken NUMBER = new JsonToken(Event.VALUE_NUMBER, true);
+        public static final JsonToken TRUE = new JsonToken(Event.VALUE_TRUE, true);
+        public static final JsonToken FALSE = new JsonToken(Event.VALUE_FALSE, true);
+        public static final JsonToken NULL = new JsonToken(Event.VALUE_NULL, true);
+        public static final JsonToken CURLYCLOSE = new JsonToken(Event.END_OBJECT, false);
+        public static final JsonToken EOF = new JsonToken(null, false);
+
+//        CURLYOPEN(Event.START_OBJECT, false);
+//        SQUAREOPEN(Event.START_ARRAY, false),
+//        COLON(null, false),
+//        COMMA(null, false),
+//        STRING(Event.VALUE_STRING, true),
+//        NUMBER(Event.VALUE_NUMBER, true),
+//        TRUE(Event.VALUE_TRUE, true),
+//        FALSE(Event.VALUE_FALSE, true),
+//        NULL(Event.VALUE_NULL, true),
+//        CURLYCLOSE(Event.END_OBJECT, false),
+//        SQUARECLOSE(Event.END_ARRAY, false),
+//        EOF(null, false);
     }
 
     JsonTokenizer(Reader reader, BufferPool bufferPool) {
@@ -485,7 +498,7 @@ final class JsonTokenizer implements Closeable {
         if (storeEnd != 0) {
             storeBegin = 0;
             storeEnd = 0;
-            bd = null;
+//            bd = null;
             minus = false;
             fracOrExp = false;
         }

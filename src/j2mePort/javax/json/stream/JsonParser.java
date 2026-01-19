@@ -41,13 +41,13 @@
 package j2mePort.javax.json.stream;
 
 
-import java.io.Closeable;
-import java.math.BigDecimal;
+import j2mePort.java.io.Closeable;
+//import java.math.BigDecimal;
 import java.util.stream.Stream;
 import java.util.Map;
 
-import j2mePort.javax.json.JsonValue;
-import j2mePort.javax.json.JsonObject;
+//import j2mePort.javax.json.JsonValue;
+//import j2mePort.javax.json.JsonObject;
 import j2mePort.javax.json.JsonArray;
 
 /**
@@ -127,7 +127,7 @@ import j2mePort.javax.json.JsonArray;
  *    ]<B>END_ARRAY</B>
  * }<B>END_OBJECT</B>
  * </pre>
- *
+ * <p>
  * The methods {@link #next()} and {@link #hasNext()} enable iteration over
  * parser events to process JSON data. {@code JsonParser} provides get methods
  * to obtain the value at the current state of the parser. For example, the
@@ -141,7 +141,7 @@ import j2mePort.javax.json.JsonArray;
  * parser.getString();          // "John"
  * </code>
  * </pre>
- *
+ * <p>
  * Starting in version 1.1, it is possible to build a partial JSON object
  * model from the stream, at the current parser position.
  * The methods {@link #getArray} and {@link #getObject} can be used to read in
@@ -160,7 +160,7 @@ import j2mePort.javax.json.JsonArray;
  *     }
  * }
  * </code></pre>
- *
+ * <p>
  * The methods {@link #getArrayStream} and {@link #getObjectStream} can be used
  * to get a stream of the elements of a {@code JsonArray} or {@code JsonObject}.
  * For example, the following code shows another way to obtain John's phoneNumber
@@ -174,7 +174,7 @@ import j2mePort.javax.json.JsonArray;
  *                             .findFirst()
  *                             .get();
  * }</pre>
- *
+ * <p>
  * The methods {@link #skipArray} and {@link #skipObject} can be used to
  * skip tokens and position the parser to {@code END_ARRAY} or
  * {@code END_OBJECT}.
@@ -198,57 +198,79 @@ public interface JsonParser extends /*Auto*/Closeable {
     /**
      * An event from {@code JsonParser}.
      */
-    enum Event {
+//    enum Event {
+    public static class Event {
+        public final int numId;
+
+        private Event(int numId) {
+            this.numId = numId;
+        }
+
+        public String toString() {return "JsonEvent:" + this.numId; }
+
         /**
          * Start of a JSON array. The position of the parser is after '['.
          */
-        START_ARRAY,
+        public static final Event START_ARRAY = new Event(1);
+
         /**
          * Start of a JSON object. The position of the parser is after '{'.
          */
-        START_OBJECT,
+//        START_OBJECT,
+        public static final Event START_OBJECT = new Event(2);
+
         /**
          * Name in a name/value pair of a JSON object. The position of the parser
          * is after the key name. The method {@link #getString} returns the key
          * name.
          */
-        KEY_NAME,
+//        KEY_NAME,
+        public static final Event KEY_NAME = new Event(3);
         /**
          * String value in a JSON array or object. The position of the parser is
          * after the string value. The method {@link #getString}
          * returns the string value.
          */
-        VALUE_STRING,
+//        VALUE_STRING,
+        public static final Event VALUE_STRING = new Event(4);
         /**
          * Number value in a JSON array or object. The position of the parser is
          * after the number value. {@code JsonParser} provides the following
          * methods to access the number value: {@link #getInt},
-         * {@link #getLong}, and {@link #getBigDecimal}.
+         * {@link #getLong}
          */
-        VALUE_NUMBER,
+//         , and {@link #getBigDecimal}.
+//        VALUE_NUMBER,
+        public static final Event VALUE_NUMBER = new Event(5);
+
         /**
          * {@code true} value in a JSON array or object. The position of the
          * parser is after the {@code true} value.
          */
-        VALUE_TRUE,
+//        VALUE_TRUE,
+        public static final Event VALUE_TRUE = new Event(6);
         /**
          * {@code false} value in a JSON array or object. The position of the
          * parser is after the {@code false} value.
          */
-        VALUE_FALSE,
+//        VALUE_FALSE,
+        public static final Event VALUE_FALSE = new Event(7);
         /**
          * {@code null} value in a JSON array or object. The position of the
          * parser is after the {@code null} value.
          */
-        VALUE_NULL,
+//        VALUE_NULL,
+        public static final Event VALUE_NULL = new Event(8);
         /**
          * End of a JSON object. The position of the parser is after '}'.
          */
-        END_OBJECT,
+//        END_OBJECT,
+        public static final Event END_OBJECT = new Event(9);
         /**
          * End of a JSON array. The position of the parser is after ']'.
          */
-        END_ARRAY
+//        END_ARRAY
+        public static final Event END_ARRAY = new Event(10);
     }
 
     /**
@@ -256,23 +278,23 @@ public interface JsonParser extends /*Auto*/Closeable {
      * {@code false} if the parser reaches the end of the JSON text.
      *
      * @return {@code true} if there are more parsing states.
-     * @throws javax.json.JsonException if an i/o error occurs (IOException
-     * would be cause of JsonException)
-     * @throws JsonParsingException if the parser encounters invalid JSON
-     * when advancing to next state.
+     * @throws jsonPort.javax.json.JsonException if an i/o error occurs (IOException
+     *                                  would be cause of JsonException)
+     * @throws JsonParsingException     if the parser encounters invalid JSON
+     *                                  when advancing to next state.
      */
     boolean hasNext();
 
     /**
      * Returns the event for the next parsing state.
      *
-     * @throws javax.json.JsonException if an i/o error occurs (IOException
-     * would be cause of JsonException)
-     * @throws JsonParsingException if the parser encounters invalid JSON
-     * when advancing to next state.
-     * @throws java.util.NoSuchElementException if there are no more parsing
-     * states.
      * @return the event for the next parsing state
+     * @throws javax.json.JsonException         if an i/o error occurs (IOException
+     *                                          would be cause of JsonException)
+     * @throws JsonParsingException             if the parser encounters invalid JSON
+     *                                          when advancing to next state.
+     * @throws java.util.NoSuchElementException if there are no more parsing
+     *                                          states.
      */
     Event next();
 
@@ -283,10 +305,10 @@ public interface JsonParser extends /*Auto*/Closeable {
      * or {@link Event#VALUE_NUMBER}.
      *
      * @return a name when the parser state is {@link Event#KEY_NAME}
-     *         a string value when the parser state is {@link Event#VALUE_STRING}
-     *         a number value when the parser state is {@link Event#VALUE_NUMBER}
+     * a string value when the parser state is {@link Event#VALUE_STRING}
+     * a number value when the parser state is {@link Event#VALUE_NUMBER}
      * @throws IllegalStateException when the parser state is not
-     *      {@code KEY_NAME}, {@code VALUE_STRING}, or {@code VALUE_NUMBER}
+     *                               {@code KEY_NAME}, {@code VALUE_STRING}, or {@code VALUE_NUMBER}
      */
     String getString();
 
@@ -312,7 +334,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @return true if this number is a integral number, otherwise false
      * @throws IllegalStateException when the parser state is not
-     *      {@code VALUE_NUMBER}
+     *                               {@code VALUE_NUMBER}
      */
     boolean isIntegralNumber();
 
@@ -326,7 +348,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @return an integer for a JSON number
      * @throws IllegalStateException when the parser state is not
-     *      {@code VALUE_NUMBER}
+     *                               {@code VALUE_NUMBER}
      * @see java.math.BigDecimal#intValue()
      */
     int getInt();
@@ -341,7 +363,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @return a long for a JSON number
      * @throws IllegalStateException when the parser state is not
-     *      {@code VALUE_NUMBER}
+     *                               {@code VALUE_NUMBER}
      * @see java.math.BigDecimal#longValue()
      */
     long getLong();
@@ -373,15 +395,13 @@ public interface JsonParser extends /*Auto*/Closeable {
      * corresponding {@code END_OBJECT}.
      *
      * @return the {@code JsonObject} at the current parser position
-     *
      * @throws IllegalStateException when the parser state is not
-     *     {@code START_OBJECT}
-     *
+     *                               {@code START_OBJECT}
      * @since 1.1
      */
-    default public JsonObject getObject() {
-        throw new UnsupportedOperationException();
-    }
+//    default public JsonObject getObject() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Returns a {@code JsonValue} at the current parser position.
@@ -393,28 +413,25 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @return the {@code JsonValue} at the current parser position.
      * @throws IllegalStateException when the parser state is
-     *     {@code END_OBJECT} or {@code END_ARRAY}
-     *
+     *                               {@code END_OBJECT} or {@code END_ARRAY}
      * @since 1.1
      */
-    default public JsonValue getValue() {
-        throw new UnsupportedOperationException();
-    }
+//    default public JsonValue getValue() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Returns a {@code JsonArray} and advance the parser to the
      * the corresponding {@code END_ARRAY}.
      *
      * @return the {@code JsonArray} at the current parser position
-     *
      * @throws IllegalStateException when the parser state is not
-     *     {@code START_ARRAY}
-     *
+     *                               {@code START_ARRAY}
      * @since 1.1
      */
-    default public JsonArray getArray() {
-        throw new UnsupportedOperationException();
-    }
+//    default public JsonArray getArray() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Returns a stream of the {@code JsonArray} elements.
@@ -426,15 +443,13 @@ public interface JsonParser extends /*Auto*/Closeable {
      * skip the unprocessed array elements.
      *
      * @return a stream of elements of the {@code JsonArray}
-     *
      * @throws IllegalStateException when the parser state is not
-     *     {@code START_ARRAY}
-     *
+     *                               {@code START_ARRAY}
      * @since 1.1
      */
-    default public Stream<JsonValue> getArrayStream() {
-        throw new UnsupportedOperationException();
-    }
+//    default public Stream<JsonValue> getArrayStream() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Returns a stream of the {@code JsonObject}'s
@@ -446,15 +461,13 @@ public interface JsonParser extends /*Auto*/Closeable {
      * used to skip the unprocessed elements.
      *
      * @return a stream of name/value pairs of the {@code JsonObject}
-     *
      * @throws IllegalStateException when the parser state is not
-     *     {@code START_OBJECT}
-     *
+     *                               {@code START_OBJECT}
      * @since 1.1
      */
-    default public Stream<Map.Entry<String,JsonValue>> getObjectStream() {
-        throw new UnsupportedOperationException();
-    }
+//    default public Stream<Map.Entry<String, JsonValue>> getObjectStream() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Returns a stream of {@code JsonValue} from a sequence of
@@ -462,14 +475,12 @@ public interface JsonParser extends /*Auto*/Closeable {
      * as needed by the stream operations.
      *
      * @return a Stream of {@code JsonValue}
-     *
      * @throws IllegalStateException if the parser is in an array or object.
-     *
      * @since 1.1
      */
-    default public Stream<JsonValue> getValueStream() {
-        throw new UnsupportedOperationException();
-    }
+//    default public Stream<JsonValue> getValueStream() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Advance the parser to {@code END_ARRAY}.
@@ -481,9 +492,9 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @since 1.1
      */
-    default public void skipArray() {
-        throw new UnsupportedOperationException();
-    }
+//    default public void skipArray() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Advance the parser to {@code END_OBJECT}.
@@ -495,17 +506,17 @@ public interface JsonParser extends /*Auto*/Closeable {
      *
      * @since 1.1
      */
-    default public void skipObject() {
-        throw new UnsupportedOperationException();
-    }
+//    default public void skipObject() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      * Closes this parser and frees any resources associated with the
      * parser. This method closes the underlying input source.
      *
      * @throws javax.json.JsonException if an i/o error occurs (IOException
-     * would be cause of JsonException)
+     *                                  would be cause of JsonException)
      */
-    @Override
+//    @Override
     void close();
 }
