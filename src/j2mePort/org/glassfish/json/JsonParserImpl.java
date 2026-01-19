@@ -44,23 +44,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.util.AbstractMap;
-import java.util.Map;
+//import java.util.AbstractMap;
+//import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+//import java.util.Spliterator;
+//import java.util.Spliterators;
+//import java.util.function.Consumer;
+//import java.util.stream.Stream;
+//import java.util.stream.StreamSupport;
 
-import j2mePort.javax.json.JsonArray;
+//import j2mePort.javax.json.JsonArray;
 // import j2mePort.javax.json.JsonArrayBuilder;
 import j2mePort.javax.json.JsonException;
-import j2mePort.javax.json.JsonObject;
+//import j2mePort.javax.json.JsonObject;
 // import javax.json.JsonObjectBuilder;
-import j2mePort.javax.json.JsonValue;
+//import j2mePort.javax.json.JsonValue;
 import j2mePort.javax.json.stream.JsonLocation;
 import j2mePort.javax.json.stream.JsonParser;
 import j2mePort.javax.json.stream.JsonParser.Event;
@@ -84,7 +84,9 @@ public class JsonParserImpl implements JsonParser {
      */
     public static String MAX_DEPTH = "org.eclipse.parsson.maxDepth";
 
-    /** Default maximum level of nesting. */
+    /**
+     * Default maximum level of nesting.
+     */
     private static final int DEFAULT_MAX_DEPTH = 1000;
 
     private final BufferPool bufferPool;
@@ -113,7 +115,7 @@ public class JsonParserImpl implements JsonParser {
         stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
     }
 
-    @Override
+//    @Override
     public String getString() {
         if (currentEvent == Event.KEY_NAME || currentEvent == Event.VALUE_STRING
                 || currentEvent == Event.VALUE_NUMBER) {
@@ -123,7 +125,7 @@ public class JsonParserImpl implements JsonParser {
                 JsonMessages.PARSER_GETSTRING_ERR(currentEvent));
     }
 
-    @Override
+//    @Override
     public boolean isIntegralNumber() {
         if (currentEvent != Event.VALUE_NUMBER) {
             throw new IllegalStateException(
@@ -132,7 +134,7 @@ public class JsonParserImpl implements JsonParser {
         return tokenizer.isIntegral();
     }
 
-    @Override
+//    @Override
     public int getInt() {
         if (currentEvent != Event.VALUE_NUMBER) {
             throw new IllegalStateException(
@@ -146,10 +148,10 @@ public class JsonParserImpl implements JsonParser {
     }
 
     boolean isDefinitelyLong() {
-    	return tokenizer.isDefinitelyLong();
+        return tokenizer.isDefinitelyLong();
     }
 
-    @Override
+//    @Override
     public long getLong() {
         if (currentEvent != Event.VALUE_NUMBER) {
             throw new IllegalStateException(
@@ -168,13 +170,13 @@ public class JsonParserImpl implements JsonParser {
     // }
 
     // @Override
-    public JsonArray getArray() {
-        if (currentEvent != Event.START_ARRAY) {
-            throw new IllegalStateException(
-                JsonMessages.PARSER_GETARRAY_ERR(currentEvent));
-        }
-        return getArray(new JsonArrayBuilderImpl(bufferPool));
-    }
+//    public JsonArray getArray() {
+//        if (currentEvent != Event.START_ARRAY) {
+//            throw new IllegalStateException(
+//                    JsonMessages.PARSER_GETARRAY_ERR(currentEvent));
+//        }
+//        return getArray(new JsonArrayBuilderImpl(bufferPool));
+//    }
 
     // @Override
     // public JsonObject getObject() {
@@ -185,7 +187,7 @@ public class JsonParserImpl implements JsonParser {
     //     return getObject(new JsonObjectBuilderImpl(bufferPool));
     // }
 
-    @Override
+//    @Override
     public JsonValue getValue() {
         switch (currentEvent) {
             case START_ARRAY:
@@ -214,7 +216,7 @@ public class JsonParserImpl implements JsonParser {
             case END_ARRAY:
             case END_OBJECT:
             default:
-            	throw new IllegalStateException(JsonMessages.PARSER_GETVALUE_ERR(currentEvent));
+                throw new IllegalStateException(JsonMessages.PARSER_GETVALUE_ERR(currentEvent));
         }
     }
 
@@ -383,7 +385,7 @@ public class JsonParserImpl implements JsonParser {
         return true;
     }
 
-    @Override
+//    @Override
     public Event next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
@@ -391,7 +393,7 @@ public class JsonParserImpl implements JsonParser {
         return currentEvent = currentContext.getNextEvent();
     }
 
-    @Override
+//    @Override
     public void close() {
         try {
             tokenizer.close();
@@ -441,12 +443,14 @@ public class JsonParserImpl implements JsonParser {
 
     private abstract class Context {
         Context next;
+
         abstract Event getNextEvent();
+
         abstract void skip();
     }
 
     private final class NoneContext extends Context {
-        @Override
+//        @Override
         public Event getNextEvent() {
             // Handle 1. {   2. [   3. value
             JsonToken token = tokenizer.nextToken();
@@ -464,7 +468,7 @@ public class JsonParserImpl implements JsonParser {
             throw parsingException(token, "[CURLYOPEN, SQUAREOPEN, STRING, NUMBER, TRUE, FALSE, NULL]");
         }
 
-        @Override
+//        @Override
         void skip() {
             // no-op
         }
@@ -486,18 +490,27 @@ public class JsonParserImpl implements JsonParser {
          * I think the current one is more readable.
          *
          */
-        @Override
+//        @Override
         public Event getNextEvent() {
             // Handle 1. }   2. name:value   3. ,name:value
             JsonToken token = tokenizer.nextToken();
             if (token == JsonToken.EOF) {
-                switch (currentEvent) {
-                    case START_OBJECT:
-                        throw parsingException(token, "[STRING, CURLYCLOSE]");
-                    case KEY_NAME:
-                        throw parsingException(token, "[COLON]");
-                    default:
-                        throw parsingException(token, "[COMMA, CURLYCLOSE]");
+                /* Selector type of 'j2mePort.javax.json.stream.JsonParser.Event' is not supported at language level '1.3' */
+//                switch (currentEvent) {
+//                    case Event.START_OBJECT:
+//                        throw parsingException(token, "[STRING, CURLYCLOSE]");
+//                    case Event.KEY_NAME:
+//                        throw parsingException(token, "[COLON]");
+//                    default:
+//                        throw parsingException(token, "[COMMA, CURLYCLOSE]");
+//                }
+
+                if (currentEvent == Event.START_OBJECT) {
+                    throw parsingException(token, "[STRING, CURLYCLOSE]");
+                } else if (Event.KEY_NAME) {
+                    throw parsingException(token, "[COLON]");
+                } else {
+                    throw parsingException(token, "[COMMA, CURLYCLOSE]");
                 }
             } else if (currentEvent == Event.KEY_NAME) {
                 // Handle 1. :value
@@ -565,11 +578,17 @@ public class JsonParserImpl implements JsonParser {
         public Event getNextEvent() {
             JsonToken token = tokenizer.nextToken();
             if (token == JsonToken.EOF) {
-                switch (currentEvent) {
-                    case Event.START_ARRAY:
-                        throw parsingException(token, "[CURLYOPEN, SQUAREOPEN, STRING, NUMBER, TRUE, FALSE, NULL]");
-                    default:
-                        throw parsingException(token, "[COMMA, CURLYCLOSE]");
+                /* Error: Selector type of 'j2mePort.javax.json.stream.JsonParser.Event' is not supported at language level '1.3' */
+//                switch (currentEvent) {
+//                    case Event.START_ARRAY:
+//                        throw parsingException(token, "[CURLYOPEN, SQUAREOPEN, STRING, NUMBER, TRUE, FALSE, NULL]");
+//                    default:
+//                        throw parsingException(token, "[COMMA, CURLYCLOSE]");
+//                }
+                if (currentEvent == Event.START_ARRAY) {
+                    throw parsingException(token, "[CURLYOPEN, SQUAREOPEN, STRING, NUMBER, TRUE, FALSE, NULL]");
+                } else {
+                    throw parsingException(token, "[COMMA, CURLYCLOSE]");
                 }
             }
             if (token == JsonToken.SQUARECLOSE) {
@@ -598,19 +617,27 @@ public class JsonParserImpl implements JsonParser {
             throw parsingException(token, "[CURLYOPEN, SQUAREOPEN, STRING, NUMBER, TRUE, FALSE, NULL]");
         }
 
-        @Override
+//        @Override
         void skip() {
             JsonToken token;
             int depth = 1;
             do {
                 token = tokenizer.nextToken();
-                switch (token) {
-                    case SQUARECLOSE:
-                        depth--;
-                        break;
-                    case SQUAREOPEN:
-                        depth++;
-                        break;
+                /* Selector type of 'j2mePort.javax.json.stream.JsonParser.Event' is not supported at language level '1.3' */
+//                switch (token) {
+//                    case SQUARECLOSE:
+//                        depth--;
+//                        break;
+//                    case SQUAREOPEN:
+//                        depth++;
+//                        break;
+//                }
+                if (token == JsonToken.SQUARECLOSE) {
+                    depth--;
+                    break;
+                } else if (token == JsonToken.SQUAREOPEN) {
+                    depth++;
+                    break;
                 }
             } while (!(token == JsonToken.SQUARECLOSE && depth == 0));
         }

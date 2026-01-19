@@ -101,6 +101,7 @@ final class JsonTokenizer implements Closeable {
         public static final JsonToken FALSE = new JsonToken(Event.VALUE_FALSE, true);
         public static final JsonToken NULL = new JsonToken(Event.VALUE_NULL, true);
         public static final JsonToken CURLYCLOSE = new JsonToken(Event.END_OBJECT, false);
+        public static final JsonToken SQUARECLOSE = new JsonToken(Event.START_ARRAY, false);
         public static final JsonToken EOF = new JsonToken(null, false);
 
 //        CURLYOPEN(Event.START_OBJECT, false);
