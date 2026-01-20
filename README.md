@@ -2,4 +2,4 @@
 
 Humble initiative to port https://github.com/javaee/jsonp to J2ME.
 
-Status: planning, no code yet.
+Status: copied some source codes, trying to port, no working code yet.
