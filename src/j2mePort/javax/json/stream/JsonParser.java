@@ -43,14 +43,14 @@ package j2mePort.javax.json.stream;
 
 import j2mePort.java.io.Closeable;
 //import java.math.BigDecimal;
-import java.util.stream.Stream;
-import java.util.Map;
+//import java.util.stream.Stream;
+//import java.util.Map;
 
-//import j2mePort.javax.json.JsonValue;
+import j2mePort.javax.json.JsonValue;
 //import j2mePort.javax.json.JsonObject;
-import j2mePort.javax.json.JsonArray;
+//import j2mePort.javax.json.JsonArray;
 
-/**
+/*
  * Provides forward, read-only access to JSON data in a streaming way. This
  * is the most efficient way for reading JSON data.
  * This is the only way to parse and process JSON data that are too big to be loaded in memory.
@@ -216,7 +216,6 @@ public interface JsonParser extends /*Auto*/Closeable {
         /**
          * Start of a JSON object. The position of the parser is after '{'.
          */
-//        START_OBJECT,
         public static final Event START_OBJECT = new Event(2);
 
         /**
@@ -224,52 +223,50 @@ public interface JsonParser extends /*Auto*/Closeable {
          * is after the key name. The method {@link #getString} returns the key
          * name.
          */
-//        KEY_NAME,
         public static final Event KEY_NAME = new Event(3);
+
         /**
          * String value in a JSON array or object. The position of the parser is
          * after the string value. The method {@link #getString}
          * returns the string value.
          */
-//        VALUE_STRING,
         public static final Event VALUE_STRING = new Event(4);
+
+//         , and {@link #getBigDecimal}.
         /**
          * Number value in a JSON array or object. The position of the parser is
          * after the number value. {@code JsonParser} provides the following
          * methods to access the number value: {@link #getInt},
          * {@link #getLong}
          */
-//         , and {@link #getBigDecimal}.
-//        VALUE_NUMBER,
         public static final Event VALUE_NUMBER = new Event(5);
 
         /**
          * {@code true} value in a JSON array or object. The position of the
          * parser is after the {@code true} value.
          */
-//        VALUE_TRUE,
         public static final Event VALUE_TRUE = new Event(6);
+
         /**
          * {@code false} value in a JSON array or object. The position of the
          * parser is after the {@code false} value.
          */
-//        VALUE_FALSE,
         public static final Event VALUE_FALSE = new Event(7);
+
         /**
          * {@code null} value in a JSON array or object. The position of the
          * parser is after the {@code null} value.
          */
-//        VALUE_NULL,
         public static final Event VALUE_NULL = new Event(8);
         /**
          * End of a JSON object. The position of the parser is after '}'.
          */
-//        END_OBJECT,
+
         public static final Event END_OBJECT = new Event(9);
         /**
          * End of a JSON array. The position of the parser is after ']'.
          */
-//        END_ARRAY
+
         public static final Event END_ARRAY = new Event(10);
     }
 

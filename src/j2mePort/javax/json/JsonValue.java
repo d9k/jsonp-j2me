@@ -40,7 +40,7 @@
 
 package j2mePort.javax.json;
 
-/**
+/*
  * <code>JsonValue</code> represents an immutable JSON value.
  *
  *
@@ -58,53 +58,69 @@ public interface JsonValue {
      *
      * @since 1.1
      */
-    static final JsonObject EMPTY_JSON_OBJECT = new EmptyObject();
+//    static final JsonObject EMPTY_JSON_OBJECT = new EmptyObject();
 
     /**
      * The empty JSON array.
      *
      * @since 1.1
      */
-    static final JsonArray EMPTY_JSON_ARRAY = new EmptyArray();
+//    static final JsonArray EMPTY_JSON_ARRAY = new EmptyArray();
 
     /**
      * Indicates the type of a {@link JsonValue} object.
      */
-    enum ValueType {
+//    enum ValueType {
+    public static class ValueType {
+        public final int numId;
+
+        private ValueType(int numId) {
+            this.numId = numId;
+        }
+
+        public String toString() {return "ValueType:" + this.numId; }
+
         /**
          * JSON array.
          */
-        ARRAY,
+        public static final ValueType ARRAY = new ValueType(1);
+//        ARRAY,
 
         /**
          * JSON object.
          */
-        OBJECT,
+        public static final ValueType OBJECT = new ValueType(2);
+//        OBJECT,
 
         /**
          * JSON string.
          */
-        STRING,
+        public static final ValueType STRING = new ValueType(3);
+//        STRING,
 
         /**
          * JSON number.
          */
-        NUMBER,
+        public static final ValueType NUMBER = new ValueType(4);
+//        NUMBER,
 
         /**
          * JSON true.
          */
-        TRUE,
+        public static final ValueType TRUE = new ValueType(5);
+//        TRUE,
 
         /**
          * JSON false.
          */
-        FALSE,
+        public static final ValueType FALSE = new ValueType(6);
+//        FALSE,
 
         /**
          * JSON null.
          */
-        NULL
+        public static final ValueType NULL = new ValueType(7);
+//        NULL,
     }
 
     /**
@@ -137,9 +153,9 @@ public interface JsonValue {
      *
      * @since 1.1
      */
-    default JsonObject asJsonObject() {
-        return JsonObject.class.cast(this);
-    }
+//    default JsonObject asJsonObject() {
+//        return JsonObject.class.cast(this);
+//    }
 
     /**
      * Return the JsonValue as a JsonArray
@@ -149,16 +165,15 @@ public interface JsonValue {
      *
      * @since 1.1
      */
-    default JsonArray asJsonArray() {
-        return JsonArray.class.cast(this);
-    }
+//    default JsonArray asJsonArray() {
+//        return JsonArray.class.cast(this);
+//    }
 
     /**
      * Returns JSON text for this JSON value.
      *
      * @return JSON text
      */
-    @Override
+//    @Override
     String toString();
-
 }
