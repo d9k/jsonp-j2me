@@ -83,32 +83,32 @@ abstract class JsonNumberImpl implements JsonNumber {
             this.num = num;
         }
 
-        @Override
+//        @Override
         public boolean isIntegral() {
             return true;
         }
 
-        @Override
+//        @Override
         public int intValue() {
             return num;
         }
 
-        @Override
+//        @Override
         public int intValueExact() {
             return num;
         }
 
-        @Override
+//        @Override
         public long longValue() {
             return num;
         }
 
-        @Override
+//        @Override
         public long longValueExact() {
             return num;
         }
 
-        @Override
+//        @Override
         public double doubleValue() {
             return num;
         }
@@ -124,12 +124,12 @@ abstract class JsonNumberImpl implements JsonNumber {
         //     return bd;
         // }
 
-        @Override
+//        @Override
         public Number numberValue() {
             return num;
         }
 
-        @Override
+//        @Override
         public String toString() {
             return Integer.toString(num);
         }
@@ -144,32 +144,32 @@ abstract class JsonNumberImpl implements JsonNumber {
             this.num = num;
         }
 
-        @Override
+//        @Override
         public boolean isIntegral() {
             return true;
         }
 
-        @Override
+//        @Override
         public int intValue() {
             return (int) num;
         }
 
-        @Override
+//        @Override
         public int intValueExact() {
             return Math.toIntExact(num);
         }
 
-        @Override
+//        @Override
         public long longValue() {
             return num;
         }
 
-        @Override
+//        @Override
         public long longValueExact() {
             return num;
         }
 
-        @Override
+//        @Override
         public double doubleValue() {
             return num;
         }
@@ -185,12 +185,12 @@ abstract class JsonNumberImpl implements JsonNumber {
         //     return bd;
         // }
 
-        @Override
+//        @Override
         public Number numberValue() {
             return num;
         }
 
-        @Override
+//        @Override
         public String toString() {
             return Long.toString(num);
         }
@@ -217,57 +217,57 @@ abstract class JsonNumberImpl implements JsonNumber {
 
     // }
 
-    @Override
+//    @Override
     public boolean isIntegral() {
         return bigDecimalValue().scale() == 0;
     }
 
-    @Override
+//    @Override
     public int intValue() {
         return bigDecimalValue().intValue();
     }
 
-    @Override
+//    @Override
     public int intValueExact() {
         return bigDecimalValue().intValueExact();
     }
 
-    @Override
+//    @Override
     public long longValue() {
         return bigDecimalValue().longValue();
     }
 
-    @Override
+//    @Override
     public long longValueExact() {
         return bigDecimalValue().longValueExact();
     }
 
-    @Override
+//    @Override
     public double doubleValue() {
         return bigDecimalValue().doubleValue();
     }
 
-    @Override
-    public BigInteger bigIntegerValue() {
-        return bigDecimalValue().toBigInteger();
-    }
+//    @Override
+//    public BigInteger bigIntegerValue() {
+//        return bigDecimalValue().toBigInteger();
+//    }
 
-    @Override
-    public BigInteger bigIntegerValueExact() {
-        return bigDecimalValue().toBigIntegerExact();
-    }
+//    @Override
+//    public BigInteger bigIntegerValueExact() {
+//        return bigDecimalValue().toBigIntegerExact();
+//    }
 
-    @Override
+//    @Override
     public ValueType getValueType() {
         return ValueType.NUMBER;
     }
 
-    @Override
-    public int hashCode() {
-        return bigDecimalValue().hashCode();
-    }
+//    @Override
+//    public int hashCode() {
+//        return bigDecimalValue().hashCode();
+//    }
 
-    @Override
+//    @Override
     public boolean equals(Object obj) {
         if (this == obj){
             return true;
@@ -275,11 +275,12 @@ abstract class JsonNumberImpl implements JsonNumber {
         if (!(obj instanceof JsonNumber)) {
             return false;
         }
-        JsonNumber other = (JsonNumber)obj;
-        return bigDecimalValue().equals(other.bigDecimalValue());
+//        JsonNumber other = (JsonNumber)obj;
+//        return bigDecimalValue().equals(other.bigDecimalValue());
+        return false;
     }
 
-    @Override
+//    @Override
     public String toString() {
         return bigDecimalValue().toString();
     }

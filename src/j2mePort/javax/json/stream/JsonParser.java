@@ -50,12 +50,12 @@ import j2mePort.javax.json.JsonValue;
 //import j2mePort.javax.json.JsonObject;
 //import j2mePort.javax.json.JsonArray;
 
-/*
+/**
  * Provides forward, read-only access to JSON data in a streaming way. This
  * is the most efficient way for reading JSON data.
  * This is the only way to parse and process JSON data that are too big to be loaded in memory.
  * <p>The class
- * {@link javax.json.Json} contains methods to create parsers from input
+ * {\@link javax.json.Json} contains methods to create parsers from input
  * sources ({@link java.io.InputStream} and {@link java.io.Reader}).
  *
  * <p>
@@ -68,8 +68,8 @@ import j2mePort.javax.json.JsonValue;
  * </pre>
  *
  * <p>
- * The class {@link JsonParserFactory} also contains methods to create
- * {@code JsonParser} instances. {@link JsonParserFactory} is preferred
+ * The class {\@link JsonParserFactory} also contains methods to create
+ * {@code JsonParser} instances. {\@link JsonParserFactory} is preferred
  * when creating multiple parser instances. A sample usage is shown
  * in the following example:
  * <pre>
@@ -144,7 +144,7 @@ import j2mePort.javax.json.JsonValue;
  * <p>
  * Starting in version 1.1, it is possible to build a partial JSON object
  * model from the stream, at the current parser position.
- * The methods {@link #getArray} and {@link #getObject} can be used to read in
+ * The methods {\@link #getArray} and {\@link #getObject} can be used to read in
  * a {@code JsonArray} or {@code JsonObject}.  For example, the following code
  * shows how to obtain the phoneNumber in a JsonArray, from the JSON above:
  *
@@ -161,7 +161,7 @@ import j2mePort.javax.json.JsonValue;
  * }
  * </code></pre>
  * <p>
- * The methods {@link #getArrayStream} and {@link #getObjectStream} can be used
+ * The methods {\@link #getArrayStream} and {\@link #getObjectStream} can be used
  * to get a stream of the elements of a {@code JsonArray} or {@code JsonObject}.
  * For example, the following code shows another way to obtain John's phoneNumber
  * in a {@code JsonArray} :
@@ -175,7 +175,7 @@ import j2mePort.javax.json.JsonValue;
  *                             .get();
  * }</pre>
  * <p>
- * The methods {@link #skipArray} and {@link #skipObject} can be used to
+ * The methods {\@link #skipArray} and {\@link #skipObject} can be used to
  * skip tokens and position the parser to {@code END_ARRAY} or
  * {@code END_OBJECT}.
  * <p>
@@ -190,8 +190,8 @@ import j2mePort.javax.json.JsonValue;
  * }
  * </code></pre>
  *
- * @see javax.json.Json
- * @see JsonParserFactory
+ * \@see javax.json.Json
+ * \@see JsonParserFactory
  */
 public interface JsonParser extends /*Auto*/Closeable {
 
@@ -275,7 +275,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      * {@code false} if the parser reaches the end of the JSON text.
      *
      * @return {@code true} if there are more parsing states.
-     * @throws jsonPort.javax.json.JsonException if an i/o error occurs (IOException
+     * @throws j2mePort.javax.json.JsonException if an i/o error occurs (IOException
      *                                  would be cause of JsonException)
      * @throws JsonParsingException     if the parser encounters invalid JSON
      *                                  when advancing to next state.
@@ -286,7 +286,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      * Returns the event for the next parsing state.
      *
      * @return the event for the next parsing state
-     * @throws javax.json.JsonException         if an i/o error occurs (IOException
+     * @throws  j2mePort.javax.json.JsonException if an i/o error occurs (IOException
      *                                          would be cause of JsonException)
      * @throws JsonParsingException             if the parser encounters invalid JSON
      *                                          when advancing to next state.
@@ -311,7 +311,7 @@ public interface JsonParser extends /*Auto*/Closeable {
 
     /**
      * Returns true if the JSON number at the current parser state is a
-     * integral number. A {@link BigDecimal} may be used to store the value
+     * integral number. A {\@link BigDecimal} may be used to store the value
      * internally and this method semantics are defined using its
      * {@code scale()}. If the scale is zero, then it is considered integral
      * type. This integral type information can be used to invoke an
@@ -346,7 +346,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      * @return an integer for a JSON number
      * @throws IllegalStateException when the parser state is not
      *                               {@code VALUE_NUMBER}
-     * @see java.math.BigDecimal#intValue()
+     * \@see java.math.BigDecimal#intValue()
      */
     int getInt();
 
@@ -361,7 +361,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      * @return a long for a JSON number
      * @throws IllegalStateException when the parser state is not
      *                               {@code VALUE_NUMBER}
-     * @see java.math.BigDecimal#longValue()
+     * \@see java.math.BigDecimal#longValue()
      */
     long getLong();
 
@@ -511,7 +511,7 @@ public interface JsonParser extends /*Auto*/Closeable {
      * Closes this parser and frees any resources associated with the
      * parser. This method closes the underlying input source.
      *
-     * @throws javax.json.JsonException if an i/o error occurs (IOException
+     * @throws j2mePort.javax.json.JsonException if an i/o error occurs (IOException
      *                                  would be cause of JsonException)
      */
 //    @Override

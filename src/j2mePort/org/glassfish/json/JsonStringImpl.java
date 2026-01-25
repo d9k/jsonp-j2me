@@ -55,27 +55,27 @@ final class JsonStringImpl implements JsonString {
         this.value = value;
     }
 
-    @Override
+//    @Override
     public String getString() {
         return value;
     }
 
-    @Override
+//    @Override
     public CharSequence getChars() {
         return value;
     }
 
-    @Override
+//    @Override
     public ValueType getValueType() {
         return ValueType.STRING;
     }
 
-    @Override
+//    @Override
     public int hashCode() {
         return getString().hashCode();
     }
 
-    @Override
+//    @Override
     public boolean equals(Object obj) {
         if (this == obj){
             return true;
@@ -87,7 +87,7 @@ final class JsonStringImpl implements JsonString {
         return getString().equals(other.getString());
     }
 
-    @Override
+//    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append('"');
