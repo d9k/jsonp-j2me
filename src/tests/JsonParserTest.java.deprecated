@@ -53,6 +53,10 @@ import j2mePort.javax.json.stream.JsonParser.Event;
 //import javax.json.stream.JsonParserFactory;
 //import javax.json.stream.JsonParsingException;
 //import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.io.Reader;
 //import java.math.BigDecimal;
 //import java.nio.charset.Charset;
 //import java.nio.charset.StandardCharsets;
@@ -72,8 +76,13 @@ public class JsonParserTest extends TestCase {
     }
 
     public void testReader() {
-        JsonParser reader = Json.createParser(
-                new StringReader("{ \"a\" : \"b\", \"c\" : null, \"d\" : [null, \"abc\"] }"));
+
+        String s = "{ \"a\" : \"b\", \"c\" : null, \"d\" : [null, \"abc\"] }";
+//        InputStream is = new ByteArrayInputStream("hi I am test".getBytes(Charset.forName("UTF-8")));
+        InputStream is = new ByteArrayInputStream("hi I am test".getBytes());
+
+
+        JsonParser reader = Json.createParser(is);
         reader.close();
     }
 
@@ -427,7 +436,7 @@ public class JsonParserTest extends TestCase {
         assertEquals(25, parser.getInt());
         assertEquals(25, parser.getLong());
         assertEquals(25, parser.getBigDecimal().intValue());
-        assertTrue( parser.isIntegralNumber());
+        assertTrue(parser.isIntegralNumber());
 
         event = parser.next();
         assertEquals(Event.KEY_NAME, event);
@@ -588,12 +597,12 @@ public class JsonParserTest extends TestCase {
 
         Random r = new Random(System.currentTimeMillis());
 
-        for(int i=0; i < 100000; i++) {
-            long num = i%2 == 0 ? r.nextInt() : r.nextLong();
-            try (JsonParser parser = factory.createParser(new StringReader("["+num+"]"))) {
+        for (int i = 0; i < 100000; i++) {
+            long num = i % 2 == 0 ? r.nextInt() : r.nextLong();
+            try (JsonParser parser = factory.createParser(new StringReader("[" + num + "]"))) {
                 parser.next();
                 parser.next();
-                assertEquals("Fails for num="+num, new BigDecimal(num).intValue(), parser.getInt());
+                assertEquals("Fails for num=" + num, new BigDecimal(num).intValue(), parser.getInt());
             }
         }
 
@@ -620,6 +629,7 @@ public class JsonParserTest extends TestCase {
             assertEquals("Fails for int=5", "5", parser.getString());
         }
     }
+
     static class MyBufferPool implements BufferPool {
         private boolean takeCalled;
         private boolean recycleCalled;
@@ -629,7 +639,7 @@ public class JsonParserTest extends TestCase {
             buf = new char[size];
         }
 
-//        @Override
+        //        @Override
         public char[] take() {
             takeCalled = true;
             return buf;
@@ -666,7 +676,7 @@ public class JsonParserTest extends TestCase {
 
     public void testBufferSizes() {
         Random r = new Random(System.currentTimeMillis());
-        for(int size=100; size < 1000; size++) {
+        for (int size = 100; size < 1000; size++) {
             final MyBufferPool bufferPool = new MyBufferPool(size);
             Map<String, Object> config = new HashMap<String, Object>() {{
                 put(BufferPool.class.getName(), bufferPool);
@@ -674,18 +684,18 @@ public class JsonParserTest extends TestCase {
             JsonParserFactory factory = Json.createParserFactory(config);
 
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i < 1000; i++) {
+            for (int i = 0; i < 1000; i++) {
                 sb.append('a');
                 String name = sb.toString();
-                long num = i%2 == 0 ? r.nextInt() : r.nextLong();
-                String str = "{\""+name+"\":["+num+"]}";
+                long num = i % 2 == 0 ? r.nextInt() : r.nextLong();
+                String str = "{\"" + name + "\":[" + num + "]}";
                 try (JsonParser parser = factory.createParser(new StringReader(str))) {
                     parser.next();
                     parser.next();
                     assertEquals("Fails for " + str, name, parser.getString());
                     parser.next();
                     parser.next();
-                    assertEquals("Fails for "+str, new BigDecimal(num).intValue(), parser.getInt());
+                    assertEquals("Fails for " + str, new BigDecimal(num).intValue(), parser.getInt());
                 }
             }
         }
@@ -699,10 +709,10 @@ public class JsonParserTest extends TestCase {
     public void testStringUsingStandardBuffer() throws Throwable {
         JsonParserFactory factory = Json.createParserFactory(null);
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i < 40000; i++) {
+        for (int i = 0; i < 40000; i++) {
             sb.append('a');
             String name = sb.toString();
-            String str = "{\""+name+"\":\""+name+"\"}";
+            String str = "{\"" + name + "\":\"" + name + "\"}";
             try (JsonParser parser = factory.createParser(new StringReader(str))) {
                 parser.next();
                 parser.next();
@@ -724,7 +734,7 @@ public class JsonParserTest extends TestCase {
         Random r = new Random(System.currentTimeMillis());
         JsonParserFactory factory = Json.createParserFactory(null);
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i < 40000; i++) {
+        for (int i = 0; i < 40000; i++) {
             sb.append('a');
             String name = sb.toString();
             int num = r.nextInt();
@@ -742,7 +752,7 @@ public class JsonParserTest extends TestCase {
     }
 
     public void testStringUsingBuffers() throws Throwable {
-        for(int size=20; size < 500; size++) {
+        for (int size = 20; size < 500; size++) {
             final MyBufferPool bufferPool = new MyBufferPool(size);
             Map<String, Object> config = new HashMap<String, Object>() {{
                 put(BufferPool.class.getName(), bufferPool);
@@ -750,10 +760,10 @@ public class JsonParserTest extends TestCase {
             JsonParserFactory factory = Json.createParserFactory(config);
 
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i < 1000; i++) {
+            for (int i = 0; i < 1000; i++) {
                 sb.append('a');
                 String name = sb.toString();
-                String str = "{\""+name+"\":\""+name+"\"}";
+                String str = "{\"" + name + "\":\"" + name + "\"}";
                 JsonLocation location;
                 try (JsonParser parser = factory.createParser(new StringReader(str))) {
                     parser.next();
