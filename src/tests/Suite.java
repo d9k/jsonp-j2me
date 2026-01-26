@@ -1,4 +1,4 @@
-package com.foo;
+package tests;
 
 import jmunit.framework.cldc11.TestSuite;
 

@@ -1,6 +1,6 @@
 import jmunit.framework.cldc11.Test;
 import jmunit.framework.cldc11.TestRunner;
-import com.foo.Suite;
+import tests.Suite;
 
 public class JsonpMIDlet extends TestRunner {
 

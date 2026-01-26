@@ -1,4 +1,4 @@
-package com.foo;
+package tests;
 
 public class Bar {
 	public String reverseCharacters(String s) {
