@@ -45,7 +45,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 //import java.math.BigDecimal;
-import java.nio.charset.Charset;
+//import java.nio.charset.Charset;
 //import java.util.AbstractMap;
 //import java.util.Map;
 import java.util.NoSuchElementException;
@@ -82,7 +82,7 @@ public class JsonParserImpl implements JsonParser {
      * Configuration property to limit maximum level of nesting when being parsing JSON string.
      * Default value is set to {@code 1000}.
      */
-    public static String MAX_DEPTH = "org.eclipse.parsson.maxDepth";
+//    public static String MAX_DEPTH = "org.eclipse.parsson.maxDepth";
 
     /**
      * Default maximum level of nesting.
@@ -99,21 +99,25 @@ public class JsonParserImpl implements JsonParser {
     public JsonParserImpl(Reader reader, BufferPool bufferPool) {
         this.bufferPool = bufferPool;
         tokenizer = new JsonTokenizer(reader, bufferPool);
-        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
+//        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
+        stack = new Stack(DEFAULT_MAX_DEPTH);
     }
 
     public JsonParserImpl(InputStream in, BufferPool bufferPool) {
         this.bufferPool = bufferPool;
-        UnicodeDetectingInputStream uin = new UnicodeDetectingInputStream(in);
-        tokenizer = new JsonTokenizer(new InputStreamReader(uin, uin.getCharset()), bufferPool);
-        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
+//        UnicodeDetectingInputStream uin = new UnicodeDetectingInputStream(in);
+//        tokenizer = new JsonTokenizer(new InputStreamReader(uin, uin.getCharset()), bufferPool);
+        InputStreamReader inputStreamReader = new InputStreamReader(in);
+        tokenizer = new JsonTokenizer(inputStreamReader, bufferPool);
+//        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
+        stack = new Stack(DEFAULT_MAX_DEPTH);
     }
 
-    public JsonParserImpl(InputStream in, Charset encoding, BufferPool bufferPool) {
-        this.bufferPool = bufferPool;
-        tokenizer = new JsonTokenizer(new InputStreamReader(in, encoding), bufferPool);
-        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
-    }
+//    public JsonParserImpl(InputStream in, Charset encoding, BufferPool bufferPool) {
+//        this.bufferPool = bufferPool;
+//        tokenizer = new JsonTokenizer(new InputStreamReader(in, encoding), bufferPool);
+//        stack = new Stack(propertyStringToInt(MAX_DEPTH, DEFAULT_MAX_DEPTH));
+//    }
 
     //    @Override
     public String getString() {
@@ -656,7 +660,7 @@ public class JsonParserImpl implements JsonParser {
         }
     }
 
-    static int propertyStringToInt(String propertyName, int defaultValue) throws JsonException {
-        return Integer.getInteger(propertyName, defaultValue);
-    }
+//    static int propertyStringToInt(String propertyName, int defaultValue) throws JsonException {
+//        return Integer.getInteger(propertyName, defaultValue);
+//    }
 }

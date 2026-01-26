@@ -40,9 +40,10 @@
 
 package j2mePort.org.glassfish.json;
 
+import j2mePort.java.lang.MathPartial;
 import j2mePort.javax.json.JsonNumber;
 // import java.math.BigDecimal;
-import java.math.BigInteger;
+//import java.math.BigInteger;
 
 /**
  * JsonNumber impl. Subclasses provide optimized implementations
@@ -125,9 +126,10 @@ abstract class JsonNumberImpl implements JsonNumber {
         // }
 
 //        @Override
-        public Number numberValue() {
-            return num;
-        }
+        /* No java.lang.Number in j2me */
+//        public Number numberValue() {
+//            return num;
+//        }
 
 //        @Override
         public String toString() {
@@ -156,7 +158,7 @@ abstract class JsonNumberImpl implements JsonNumber {
 
 //        @Override
         public int intValueExact() {
-            return Math.toIntExact(num);
+            return MathPartial.toIntExact(num);
         }
 
 //        @Override
@@ -186,9 +188,9 @@ abstract class JsonNumberImpl implements JsonNumber {
         // }
 
 //        @Override
-        public Number numberValue() {
-            return num;
-        }
+//        public Number numberValue() {
+//            return num;
+//        }
 
 //        @Override
         public String toString() {
@@ -218,34 +220,34 @@ abstract class JsonNumberImpl implements JsonNumber {
     // }
 
 //    @Override
-    public boolean isIntegral() {
-        return bigDecimalValue().scale() == 0;
-    }
+//    public boolean isIntegral() {
+//        return bigDecimalValue().scale() == 0;
+//    }
 
 //    @Override
-    public int intValue() {
-        return bigDecimalValue().intValue();
-    }
+//    public int intValue() {
+//        return bigDecimalValue().intValue();
+//    }
 
 //    @Override
-    public int intValueExact() {
-        return bigDecimalValue().intValueExact();
-    }
+//    public int intValueExact() {
+//        return bigDecimalValue().intValueExact();
+//    }
 
 //    @Override
-    public long longValue() {
-        return bigDecimalValue().longValue();
-    }
+//    public long longValue() {
+//        return bigDecimalValue().longValue();
+//    }
 
 //    @Override
-    public long longValueExact() {
-        return bigDecimalValue().longValueExact();
-    }
+//    public long longValueExact() {
+//        return bigDecimalValue().longValueExact();
+//    }
 
 //    @Override
-    public double doubleValue() {
-        return bigDecimalValue().doubleValue();
-    }
+//    public double doubleValue() {
+//        return bigDecimalValue().doubleValue();
+//    }
 
 //    @Override
 //    public BigInteger bigIntegerValue() {
@@ -281,9 +283,9 @@ abstract class JsonNumberImpl implements JsonNumber {
     }
 
 //    @Override
-    public String toString() {
-        return bigDecimalValue().toString();
-    }
+//    public String toString() {
+//        return bigDecimalValue().toString();
+//    }
 
 }
 

@@ -58,7 +58,7 @@ public interface JsonString extends JsonValue {
      *
      * @return a char sequence for the JSON String value
      */
-    CharSequence getChars();
+//    CharSequence getChars();
 
     /**
      * Compares the specified object with this {@code JsonString} for equality.
@@ -71,7 +71,7 @@ public interface JsonString extends JsonValue {
      * @return {@code true} if the specified object is equal to this
      *      {@code JsonString}
      */
-    @Override
+//    @Override
     boolean equals(Object obj);
 
     /**
@@ -81,7 +81,7 @@ public interface JsonString extends JsonValue {
      *
      * @return the hash code value for this {@code JsonString} object
      */
-    @Override
+//    @Override
     int hashCode();
 
 }

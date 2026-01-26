@@ -61,9 +61,9 @@ final class JsonStringImpl implements JsonString {
     }
 
 //    @Override
-    public CharSequence getChars() {
-        return value;
-    }
+//    public CharSequence getChars() {
+//        return value;
+//    }
 
 //    @Override
     public ValueType getValueType() {
@@ -89,7 +89,8 @@ final class JsonStringImpl implements JsonString {
 
 //    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+//        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
         sb.append('"');
 
         for(int i = 0; i < value.length(); i++) {

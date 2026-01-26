@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2013, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1994, 2013, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -23,33 +23,22 @@
  * questions.
  */
 
-package j2mePort.java.io;
+package j2mePort.java.lang;
 
-import j2mePort.java.lang.AutoCloseable;
-
-import java.io.IOException;
-
-/**
- * A {@code Closeable} is a source or destination of data that can be closed.
- * The close method is invoked to release resources that the object is
- * holding (such as open files).
- *
- * @since 1.5
- */
-public interface Closeable extends AutoCloseable {
-
+public final class MathPartial {
     /**
-     * Closes this stream and releases any system resources associated
-     * with it. If the stream is already closed then invoking this
-     * method has no effect.
+     * Returns the value of the {@code long} argument;
+     * throwing an exception if the value overflows an {@code int}.
      *
-     * <p> As noted in {@link AutoCloseable#close()}, cases where the
-     * close may fail require careful attention. It is strongly advised
-     * to relinquish the underlying resources and to internally
-     * <em>mark</em> the {@code Closeable} as closed, prior to throwing
-     * the {@code IOException}.
-     *
-     * @throws IOException if an I/O error occurs
+     * @param value the long value
+     * @return the argument as an int
+     * @throws ArithmeticException if the {@code argument} overflows an int
+     * @since 1.8
      */
-    public void close() throws IOException;
+    public static int toIntExact(long value) {
+        if ((int)value != value) {
+            throw new ArithmeticException("integer overflow");
+        }
+        return (int)value;
+    }
 }

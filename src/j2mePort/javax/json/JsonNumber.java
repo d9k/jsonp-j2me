@@ -40,21 +40,21 @@
 
 package j2mePort.javax.json;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+//import java.math.BigDecimal;
+//import java.math.BigInteger;
 
 /**
  * An immutable JSON number value.
  *
  * <p>
- * Implementations may use a {@link BigDecimal} object to store the numeric
+ * Implementations may use a {@literal @link BigDecimal} object to store the numeric
  * value internally.
  * The {@code BigDecimal} object can be constructed from the following types:
- * <code>int</code> {@link BigDecimal#BigDecimal(int)},
- * <code>long</code> {@link BigDecimal#BigDecimal(long)},
- * <code>BigInteger</code> {@link BigDecimal#BigDecimal(BigInteger)},
- * <code>double</code> {@link BigDecimal#valueOf(double)}, and
- * <code>String</code> {@link BigDecimal#BigDecimal(String)}.
+ * <code>int</code> {@literal @link BigDecimal#BigDecimal(int)},
+ * <code>long</code> {@literal @link BigDecimal#BigDecimal(long)},
+ * <code>BigInteger</code> {@literal @link BigDecimal#BigDecimal(BigInteger)},
+ * <code>double</code> {@literal @link BigDecimal#valueOf(double)}, and
+ * <code>String</code> {@literal @link BigDecimal#BigDecimal(String)}.
  * Some of the method semantics in this class are defined using the
  * {@code BigDecimal} semantics.
  */
@@ -88,7 +88,7 @@ public interface JsonNumber extends JsonValue {
      * number value as well as return a result with the opposite sign.
      *
      * @return an {@code int} representation of the JSON number
-     * @see java.math.BigDecimal#intValue()
+     * {@literal @see java.math.BigDecimal#intValue()}
      */
     int intValue();
 
@@ -132,7 +132,7 @@ public interface JsonNumber extends JsonValue {
      * @return a {@code BigInteger} representation of the JSON number.
      * @see java.math.BigDecimal#toBigInteger()
      */
-    BigInteger bigIntegerValue();
+//    BigInteger bigIntegerValue();
 
     /**
      * Returns this JSON number as a {@link BigInteger} object. This is a
@@ -142,7 +142,7 @@ public interface JsonNumber extends JsonValue {
      * @throws ArithmeticException if the number has a nonzero fractional part
      * @see java.math.BigDecimal#toBigIntegerExact()
      */
-    BigInteger bigIntegerValueExact();
+//    BigInteger bigIntegerValueExact();
 
     /**
      * Returns this JSON number as a {@code double}. This is a

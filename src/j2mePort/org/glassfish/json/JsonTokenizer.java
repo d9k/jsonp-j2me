@@ -1,6 +1,8 @@
 package j2mePort.org.glassfish.json;
 
 import j2mePort.Assert;
+import j2mePort.java.io.Closeable;
+import j2mePort.java.util.ArraysPartial;
 import j2mePort.org.glassfish.json.api.BufferPool;
 
 import j2mePort.javax.json.JsonException;
@@ -8,8 +10,8 @@ import j2mePort.javax.json.stream.JsonLocation;
 import j2mePort.javax.json.stream.JsonParser;
 import j2mePort.javax.json.stream.JsonParsingException;
 import java.io.*;
-import java.math.BigDecimal;
-import java.util.Arrays;
+//import java.math.BigDecimal;
+//import java.util.Arrays;
 
 import j2mePort.javax.json.stream.JsonParser.Event;
 
@@ -22,7 +24,8 @@ final class JsonTokenizer implements Closeable {
     // Table to look up hex ch -> value (for e.g HEX['F'] = 15, HEX['5'] = 5)
     private final static int[] HEX = new int[128];
     static {
-        Arrays.fill(HEX, -1);
+//        Arrays.fill(HEX, -1);
+        ArraysPartial.fill(HEX, -1);
         for (int i='0'; i <= '9'; i++) {
             HEX[i] = i-'0';
         }
@@ -473,7 +476,7 @@ final class JsonTokenizer implements Closeable {
                 // there is some store data
                 if (storeLen == buf.length) {
                     // buffer is full, double the capacity
-                    char[] doubleBuf = Arrays.copyOf(buf, 2 * buf.length);
+                    char[] doubleBuf = ArraysPartial.copyOf(buf, 2 * buf.length);
                     bufferPool.recycle(buf);
                     buf = doubleBuf;
                 } else {
@@ -568,7 +571,7 @@ final class JsonTokenizer implements Closeable {
         return !fracOrExp;
     }
 
-    @Override
+//    @Override
     public void close() throws IOException {
         reader.close();
         bufferPool.recycle(buf);
