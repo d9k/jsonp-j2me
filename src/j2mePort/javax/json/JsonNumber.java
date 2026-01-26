@@ -170,19 +170,20 @@ public interface JsonNumber extends JsonValue {
      *
      * @since 1.1
      */
-    default Number numberValue() {
-        throw new UnsupportedOperationException();
-    }
+//    default Number numberValue() {
+//        throw new UnsupportedOperationException();
+//    }
 
+//    @Override
     /**
      * Returns a JSON text representation of the JSON number. The
      * representation is equivalent to {@link BigDecimal#toString()}.
      *
      * @return JSON text representation of the number
      */
-    @Override
     String toString();
 
+//    @Override
     /**
      * Compares the specified object with this {@code JsonNumber} object for
      * equality. Returns {@code true} if and only if the type of the specified
@@ -194,9 +195,9 @@ public interface JsonNumber extends JsonValue {
      * @return {@code true} if the specified object is equal to this
      *      {@code JsonNumber}
      */
-    @Override
     boolean equals(Object obj);
 
+//    @Override
     /**
      * Returns the hash code value for this {@code JsonNumber} object.  The
      * hash code of a {@code JsonNumber} object is defined as the hash code of
@@ -204,7 +205,6 @@ public interface JsonNumber extends JsonValue {
      *
      * @return the hash code value for this {@code JsonNumber} object
      */
-    @Override
     int hashCode();
 
 }

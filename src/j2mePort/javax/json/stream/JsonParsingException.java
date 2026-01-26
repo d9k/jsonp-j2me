@@ -78,10 +78,10 @@ public class JsonParsingException extends JsonException {
      *              unknown.)
      * @param location the location of the incorrect JSON
      */
-    public JsonParsingException(String message, Throwable cause, JsonLocation location) {
-        super(message, cause);
-        this.location = location;
-    }
+//    public JsonParsingException(String message, Throwable cause, JsonLocation location) {
+//        super(message, cause);
+//        this.location = location;
+//    }
 
     /**
      * Return the location of the incorrect JSON.
