@@ -72,7 +72,8 @@ public class JsonException extends RuntimeException {
      *         unknown.)
      */
     public JsonException(String message, Throwable cause) {
-        super(message, cause);
+//        super(message, cause);
+        super(message + ": cause message: " + cause.getMessage() + ", cause class: " + cause.getClass().getName());
     }
 
 }
