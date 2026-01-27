@@ -50,10 +50,15 @@ import java.lang.ref.WeakReference;
  *
  * @author Jitendra Kotamraju
  */
-class BufferPoolImpl implements BufferPool {
+public class BufferPoolImpl implements BufferPool {
 
     // volatile since multiple threads may access queue reference
-    private volatile WeakReference<ConcurrentLinkedQueue<char[]>> queue;
+//    private volatile WeakReference<ConcurrentLinkedQueue<char[]>> queue;
+    /**
+     * TODO Only one cached buffer. Linked queue in original,
+     * multiple buffers. But we have single thread.
+     **/
+    private char[] cached;
 
     /**
      * Gets a new object from the pool.
@@ -64,35 +69,46 @@ class BufferPoolImpl implements BufferPool {
      * @return
      *      always non-null.
      */
-//    @Override
     public final char[] take() {
-        char[] t = getQueue().poll();
-        if (t==null)
-            return new char[4096];
-        return t;
-    }
-
-    private ConcurrentLinkedQueue<char[]> getQueue() {
-        WeakReference<ConcurrentLinkedQueue<char[]>> q = queue;
-        if (q != null) {
-            ConcurrentLinkedQueue<char[]> d = q.get();
-            if (d != null)
-                return d;
+//    @Override
+//        char[] t = getQueue().poll();
+//        if (t==null)
+//            return new char[4096];
+//        return t;
+       if (cached != null) {
+            char[] buf = cached;
+            cached = null;
+            return buf;
         }
-
-        // overwrite the queue
-        ConcurrentLinkedQueue<char[]> d = new ConcurrentLinkedQueue<>();
-        queue = new WeakReference<>(d);
-
-        return d;
+        return new char[512];
     }
 
+//    private ConcurrentLinkedQueue<char[]> getQueue() {
+//        WeakReference<ConcurrentLinkedQueue<char[]>> q = queue;
+//        if (q != null) {
+//            ConcurrentLinkedQueue<char[]> d = q.get();
+//            if (d != null)
+//                return d;
+//        }
+//
+//        // overwrite the queue
+//        ConcurrentLinkedQueue<char[]> d = new ConcurrentLinkedQueue<>();
+//        queue = new WeakReference<>(d);
+//
+//        return d;
+//    }
+//
     /**
      * Returns an object back to the pool.
      */
-//    @Override
     public final void recycle(char[] t) {
-        getQueue().offer(t);
+//    @Override
+//        getQueue().offer(t);
+        if (t != null
+//                && buf.length <= CACHED_BUF_MAX_SIZE
+        ) {
+            cached = t;
+        }
     }
 
 }

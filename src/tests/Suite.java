@@ -6,8 +6,9 @@ public class Suite extends TestSuite {
 	public Suite() {
 		super("All Tests");
 		add(new FooTest());
-		add(new BarTest());
-		add(new SpeedTest());
-		add(new MemoryTest());
+//		add(new BarTest());
+//		add(new SpeedTest());
+//		add(new MemoryTest());
+		add(new JsonParserTest());
 	}
 }

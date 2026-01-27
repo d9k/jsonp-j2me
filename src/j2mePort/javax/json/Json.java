@@ -39,14 +39,17 @@
  */
 package j2mePort.javax.json;
 
+import j2mePort.javax.json.spi.JsonProvider;
 import j2mePort.javax.json.stream.JsonParser;
 import j2mePort.org.glassfish.json.JsonParserImpl;
 import j2mePort.org.glassfish.json.api.BufferPool;
+import j2mePort.org.glassfish.json.BufferPoolImpl;
 
+import java.io.InputStream;
 import java.io.Reader;
 
 public final class Json {
-    private final BufferPool bufferPool = new BufferPoolImpl();
+//    private final BufferPool bufferPool = new BufferPoolImpl();
     /**
      * Creates a JSON parser from a character stream.
      *
@@ -54,7 +57,21 @@ public final class Json {
      * @return a JSON parser
      */
     public static JsonParser createParser(Reader reader) {
-//        return JsonProvider.provider().createParser(reader);
-        return new JsonParserImpl(reader);
+        return JsonProvider.provider().createParser(reader);
+//        return new JsonParserImpl(reader, bufferPool);
+    }
+
+    /**
+     * Creates a JSON parser from a byte stream.
+     * The character encoding of the stream is determined as specified in
+     * <a href="http://tools.ietf.org/rfc/rfc7159.txt">RFC 7159</a>.
+     *
+     * @param in i/o stream from which JSON is to be read
+     * @throws JsonException if encoding cannot be determined
+     *         or i/o error (IOException would be cause of JsonException)
+     * @return a JSON parser
+     */
+    public static JsonParser createParser(InputStream in) {
+        return JsonProvider.provider().createParser(in);
     }
 }
