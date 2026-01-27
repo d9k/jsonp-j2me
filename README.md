@@ -2,7 +2,7 @@
 
 Humble initiative to port https://github.com/javaee/jsonp to J2ME.
 
-Status: it builds but no working code yet.
+Status: it builds and simple test for small json file works (`testWikiString()`)
 
 ## Porting notes
 
