@@ -40,6 +40,7 @@
 
 package tests;
 
+import com.siemens.mp.io.File;
 import j2mePort.java.io.SimpleStringReader;
 import j2mePort.javax.json.Json;
 import jmunit.framework.cldc11.TestCase;
@@ -51,6 +52,7 @@ import jmunit.framework.cldc11.TestCase;
 import j2mePort.javax.json.stream.JsonLocation;
 import j2mePort.javax.json.stream.JsonParser;
 import j2mePort.javax.json.stream.JsonParser.Event;
+import ru.d9k.FileHelpers;
 //import javax.json.stream.JsonParserFactory;
 //import javax.json.stream.JsonParsingException;
 //import java.io.*;
@@ -68,6 +70,7 @@ import java.io.*;
 public class JsonParserTest extends TestCase {
 //    static final Charset UTF_32LE = Charset.forName("UTF-32LE");
 //    static final Charset UTF_32BE = Charset.forName("UTF-32BE");
+    public static String encoding = "UTF-8";
 
     public JsonParserTest() {
         super(2, "JsonParserTest");
@@ -80,7 +83,8 @@ public class JsonParserTest extends TestCase {
                 testReader();
                 break;
             case 1:
-                testWikiReader();
+//                testWikiReader();
+                testWikiString();
                 break;
             default:
                 break;
@@ -422,11 +426,25 @@ public class JsonParserTest extends TestCase {
 //        }
 //    }
 //
-    public void testWikiReader() throws Exception {
-//        try (JsonParser parser = Json.createParser(wikiReader())) {
-        JsonParser parser = Json.createParser(wikiReader());
+//    public void testWikiReader() throws Exception {
+////        try (JsonParser parser = Json.createParser(wikiReader())) {
+//        Reader r = wikiReader();
+////        JsonParser parser = Json.createParser(wikiReader());
+////        _testWiki(parser);
+////        }
+//    }
+
+    public void testWikiString() throws Exception {
+        String s = wikiString();
+        System.out.println("wikiString():" + s);
+        JsonParser parser = Json.createParser(new SimpleStringReader(s));
         _testWiki(parser);
+//        try (JsonParser parser = Json.createParser(wikiReader())) {
+//        Reader r = wikiReader();
+//        JsonParser parser = Json.createParser(wikiReader());
+//        _testWiki(parser);
 //        }
+
     }
 //
 //    public void testWikiStructure() throws Exception {
@@ -592,23 +610,25 @@ public class JsonParserTest extends TestCase {
 //        }
 //    }
 //
-//    static String wikiString() {
+    static String wikiString() throws Exception {
+        return FileHelpers.readFromFile("/resources/test/wiki.json");
 //        String str;
 //        try (Scanner scanner = new Scanner(wikiReader())
 //                .useDelimiter("\\A")) {
 //            str = scanner.hasNext() ? scanner.next() : "";
 //        }
 //        return str;
-//    }
-//
+//        return FileHelpers.
+    }
+
 //    static InputStream wikiStream() {
 //        return JsonParserTest.class.getResourceAsStream("/wiki.json");
 //    }
-//
-    static Reader wikiReader() {
-        return new InputStreamReader(
-                JsonParserTest.class.getResourceAsStream("test/wiki.json") /**, StandardCharsets.UTF_8*/);
-    }
+
+//    static Reader wikiReader() {
+//        return new InputStreamReader(
+//                JsonParserTest.class.getResourceAsStream("test/wiki.json"), JsonParserTest.encoding);
+//    }
 
 //    public void testIntNumber() {
 //        JsonParserFactory factory = Json.createParserFactory(null);
