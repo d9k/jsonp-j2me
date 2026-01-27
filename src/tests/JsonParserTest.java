@@ -40,7 +40,6 @@
 
 package tests;
 
-import com.siemens.mp.io.File;
 import j2mePort.java.io.SimpleStringReader;
 import j2mePort.javax.json.Json;
 import jmunit.framework.cldc11.TestCase;
@@ -49,14 +48,13 @@ import jmunit.framework.cldc11.TestCase;
 //import org.glassfish.json.api.BufferPool;
 
 //import javax.json.*;
-import j2mePort.javax.json.stream.JsonLocation;
 import j2mePort.javax.json.stream.JsonParser;
 import j2mePort.javax.json.stream.JsonParser.Event;
 import ru.d9k.FileHelpers;
 //import javax.json.stream.JsonParserFactory;
 //import javax.json.stream.JsonParsingException;
 //import java.io.*;
-import java.io.*;
+
 //import java.math.BigDecimal;
 //import java.nio.charset.Charset;
 //import java.nio.charset.StandardCharsets;
@@ -70,7 +68,8 @@ import java.io.*;
 public class JsonParserTest extends TestCase {
 //    static final Charset UTF_32LE = Charset.forName("UTF-32LE");
 //    static final Charset UTF_32BE = Charset.forName("UTF-32BE");
-    public static String encoding = "UTF-8";
+//    public static String encoding = "UTF-8";
+    public static String WIKI_FILE_PATH = "/resources/test/wiki.json";
 
     public JsonParserTest() {
         super(2, "JsonParserTest");
@@ -611,7 +610,7 @@ public class JsonParserTest extends TestCase {
 //    }
 //
     static String wikiString() throws Exception {
-        return FileHelpers.readFromFile("/resources/test/wiki.json");
+        return FileHelpers.readFromFile(WIKI_FILE_PATH);
 //        String str;
 //        try (Scanner scanner = new Scanner(wikiReader())
 //                .useDelimiter("\\A")) {
