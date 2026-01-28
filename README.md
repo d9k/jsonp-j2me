@@ -10,6 +10,4 @@ Status: it builds and simple test for small json file works (`testWikiString()`)
 - [Convert enum to static class](./ai-workflow/porting-java-se-to-j2me/convert-enum-to-static-class.md)
 - [Convert error messages](./ai-workflow/porting-java-se-to-j2me/convert-error-messsages.md)
 - Commenting BigDecimal out
- 
-- 
-`src/j2mePort/java/lang/`: ported from https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/java/lang
+- `src/j2mePort/java/lang/`: ported from https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/java/lang
